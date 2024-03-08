@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - logicalFilePath: 1709918073.yaml
+  - preConditions:
+      - onFail: MARK_RAN
+      - not:
+          - tableExists:
+              tableName: cliente
+  - changeSet:
+      id: 1709918073-1
+      author: Iuri Néviton
+      comment: Criar tabela cliente
+      changes:
+        - sql:
+            sql: >
+              CREATE TABLE cliente
+              (
+                  id     BIGINT GENERATED ALWAYS AS IDENTITY,
+                  limite NUMBER NOT NULL,
+                  saldo  NUMBER NOT NULL
+              );
+      rollback:
+        - sql:
+            sql: >
+              DROP TABLE cliente;
+  - changeSet:
+      id: 1709918073-2
+      author: Iuri Néviton
+      comment: Popular tabela cliente
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO cliente (limite, saldo)
+              VALUES (100000, 0),
+                     (80000, 0),
+                     (1000000, 0),
+                     (10000000, 0),
+                     (500000, 0);
+      rollback:
+        - sql:
+            sql: >
+              DELETE FROM cliente;

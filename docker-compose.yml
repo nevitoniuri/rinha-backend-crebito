@@ -1,0 +1,24 @@
+version: '3.8'
+
+networks:
+  rinhabackend:
+    name: rinhabackend
+    driver: bridge
+
+services:
+  postgres-local:
+    image: postgres:14.6
+    container_name: rinhabackend-local
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: 'rinhabackend'
+      POSTGRES_PASSWORD: 'postgres'
+    networks:
+      - rinhabackend
+    volumes:
+      - rinhabackend:/var/lib/postgresql/data
+
+volumes:
+  rinhabackend:
+    driver: local

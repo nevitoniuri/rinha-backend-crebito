@@ -1,0 +1,6 @@
+spring:
+  profiles.active: local
+  datasource:
+    url: jdbc:postgresql://${db.host}:${db.port}/${db.database}?currentSchema=${db.schema}
+    username: ${db.username}
+    password: ${db.password}

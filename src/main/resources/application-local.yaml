@@ -1,0 +1,7 @@
+db:
+  host: ${DB_HOST:localhost}
+  username: ${DB_USER:rinhabackend}
+  password: ${DB_PASS:postgres}
+  port: ${DB_PORT:5432}
+  database: ${DB_DATABASE:rinhabackend}
+  schema: ${DB_SCHEMA:public}
