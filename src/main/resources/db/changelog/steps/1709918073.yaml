@@ -1,22 +1,23 @@
 databaseChangeLog:
   - logicalFilePath: 1709918073.yaml
-  - preConditions:
-      - onFail: MARK_RAN
-      - not:
-          - tableExists:
-              tableName: cliente
   - changeSet:
       id: 1709918073-1
       author: Iuri Néviton
       comment: Criar tabela cliente
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: cliente
       changes:
         - sql:
             sql: >
               CREATE TABLE cliente
               (
                   id     BIGINT GENERATED ALWAYS AS IDENTITY,
-                  limite NUMBER NOT NULL,
-                  saldo  NUMBER NOT NULL
+                  limite INTEGER NOT NULL,
+                  saldo  INTEGER NOT NULL,
+                  PRIMARY KEY (id)
               );
       rollback:
         - sql:
@@ -39,3 +40,30 @@ databaseChangeLog:
         - sql:
             sql: >
               DELETE FROM cliente;
+  - changeSet:
+      id: 1709918073-3
+      author: Iuri Néviton
+      comment: Criar tabela transacao
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: transacao
+      changes:
+        - sql:
+            sql: >
+              CREATE TABLE transacao
+              (
+                  id         BIGINT GENERATED ALWAYS AS IDENTITY,
+                  cliente_id BIGINT,
+                  tipo       VARCHAR(20) NOT NULL,
+                  valor      INTEGER NOT NULL,
+                  descricao  VARCHAR(255),
+                  data       TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                  PRIMARY KEY (id),
+                  CONSTRAINT fk_transacao_cliente_id FOREIGN KEY (cliente_id) REFERENCES cliente (id)
+              );
+      rollback:
+        - sql:
+            sql: >
+              DROP TABLE transacao;

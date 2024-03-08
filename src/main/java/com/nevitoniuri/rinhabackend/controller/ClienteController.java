@@ -1,8 +1,9 @@
 package com.nevitoniuri.rinhabackend.controller;
 
+import com.nevitoniuri.rinhabackend.controller.response.ExtratoResponse;
 import com.nevitoniuri.rinhabackend.controller.response.TransacaoResponse;
 import com.nevitoniuri.rinhabackend.helper.ClienteHelper;
-import com.nevitoniuri.rinhabackend.model.Transacao;
+import com.nevitoniuri.rinhabackend.service.ClienteService;
 import com.nevitoniuri.rinhabackend.service.TransacaoService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -13,16 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
 
   private final TransacaoService transacaoService;
+  private final ClienteService clienteService;
 
-  @GetMapping("/{clienteId}/extrato")
-  public List<TransacaoResponse> getExtrato(@PathVariable Long clienteId) {
-   return transacaoService.findByClienteId(clienteId)
-       .stream().map(ClienteHelper::toTransacaoResponse)
-       .toList();
+  @GetMapping("/{id}/extrato")
+  public ExtratoResponse getExtrato(@PathVariable Long id) {
+    var cliente = clienteService.findByIdOrThrow(id);
+    List<TransacaoResponse> ultimasTransacoes = transacaoService.findByClienteId(id)
+        .stream().map(ClienteHelper::toTransacaoResponse)
+        .toList();
+    return ExtratoResponse.builder()
+        .saldo(ClienteHelper.toSaldoResponse(cliente))
+        .ultimasTransacoes(ultimasTransacoes)
+        .build();
   }
 
 }

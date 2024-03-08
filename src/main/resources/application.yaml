@@ -4,3 +4,10 @@ spring:
     url: jdbc:postgresql://${db.host}:${db.port}/${db.database}?currentSchema=${db.schema}
     username: ${db.username}
     password: ${db.password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
