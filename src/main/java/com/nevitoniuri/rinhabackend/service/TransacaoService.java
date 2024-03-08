@@ -1,5 +1,7 @@
 package com.nevitoniuri.rinhabackend.service;
 
+import com.nevitoniuri.rinhabackend.controller.request.CriarTransacaoRequest;
+import com.nevitoniuri.rinhabackend.model.Cliente;
 import com.nevitoniuri.rinhabackend.model.Transacao;
 import com.nevitoniuri.rinhabackend.repository.TransacaoRepository;
 import java.util.List;
@@ -14,5 +16,9 @@ public class TransacaoService {
 
   public List<Transacao> findByClienteId(Long clienteId) {
     return transacaoRepository.findByClienteId(clienteId);
+  }
+
+  public void criarTransacao(Cliente cliente, CriarTransacaoRequest request) {
+    
   }
 }

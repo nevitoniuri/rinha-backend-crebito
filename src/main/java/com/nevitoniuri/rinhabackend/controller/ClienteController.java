@@ -1,5 +1,6 @@
 package com.nevitoniuri.rinhabackend.controller;
 
+import com.nevitoniuri.rinhabackend.controller.request.CriarTransacaoRequest;
 import com.nevitoniuri.rinhabackend.controller.response.ExtratoResponse;
 import com.nevitoniuri.rinhabackend.controller.response.TransacaoResponse;
 import com.nevitoniuri.rinhabackend.helper.ClienteHelper;
@@ -9,6 +10,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +33,12 @@ public class ClienteController {
         .saldo(ClienteHelper.toSaldoResponse(cliente))
         .ultimasTransacoes(ultimasTransacoes)
         .build();
+  }
+
+  @PostMapping("/{id}/transacoes")
+  public void criarTransacao(@RequestBody CriarTransacaoRequest request, @PathVariable Long id) {
+    var cliente = clienteService.findByIdOrThrow(id);
+    transacaoService.criarTransacao(cliente, request);
   }
 
 }
