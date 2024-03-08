@@ -5,10 +5,9 @@ import com.nevitoniuri.rinhabackend.controller.response.TransacaoResponse;
 import com.nevitoniuri.rinhabackend.model.Cliente;
 import com.nevitoniuri.rinhabackend.model.Transacao;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class ClienteHelper {
 
   public static TransacaoResponse toTransacaoResponse(Transacao transacao) {
