@@ -32,11 +32,11 @@ databaseChangeLog:
         - sql:
             sql: >
               INSERT INTO cliente (nome, limite)
-              VALUES ("Breno Juan", 100000),
-                     ("Julia Maria", 80000),
-                     ("Paulo Ian", 1000000),
-                     ("Rafael Jesus", 10000000),
-                     ("José Dias", 500000);
+              VALUES ('Breno Juan', 100000),
+                     ('Julia Maria', 80000),
+                     ('Paulo Ian', 1000000),
+                     ('Rafael Jesus', 10000000),
+                     ('José Dias', 500000);
       rollback:
         - sql:
             sql: >

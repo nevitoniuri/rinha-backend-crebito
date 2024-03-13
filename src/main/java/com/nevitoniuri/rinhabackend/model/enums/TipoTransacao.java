@@ -1,17 +1,18 @@
 package com.nevitoniuri.rinhabackend.model.enums;
 
-import com.nevitoniuri.rinhabackend.exception.ServiceError;
-import com.nevitoniuri.rinhabackend.exception.ServiceException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 public enum TipoTransacao {
-  DEPOSITO,
-  SAQUE;
+  CREDITO,
+  DEBITO;
 
   public static TipoTransacao fromString(String tipo) {
     return switch (tipo) {
-      case "c" -> DEPOSITO;
-      case "d" -> SAQUE;
-      default -> throw new ServiceException(ServiceError.TIPO_TRANSACAO_INVALIDO);
+      case "c" -> CREDITO;
+      case "d" -> DEBITO;
+      default ->
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de transação inválido");
     };
   }
 }

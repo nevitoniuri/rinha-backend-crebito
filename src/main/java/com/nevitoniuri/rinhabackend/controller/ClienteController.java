@@ -38,7 +38,7 @@ public class ClienteController {
   @PostMapping("/{id}/transacoes")
   public void criarTransacao(@RequestBody CriarTransacaoRequest request, @PathVariable Long id) {
     var cliente = clienteService.findByIdOrThrow(id);
-    transacaoService.criarTransacao(cliente, request);
+    transacaoService.criarTransacao(cliente, request.valor(), request.tipo(), request.descricao());
   }
 
 }
