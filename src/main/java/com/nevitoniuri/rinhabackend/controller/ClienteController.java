@@ -1,6 +1,7 @@
 package com.nevitoniuri.rinhabackend.controller;
 
 import com.nevitoniuri.rinhabackend.controller.request.CriarTransacaoRequest;
+import com.nevitoniuri.rinhabackend.controller.response.ClienteResponse;
 import com.nevitoniuri.rinhabackend.controller.response.ExtratoResponse;
 import com.nevitoniuri.rinhabackend.controller.response.TransacaoResponse;
 import com.nevitoniuri.rinhabackend.helper.ClienteHelper;
@@ -26,7 +27,7 @@ public class ClienteController {
   @GetMapping("/{id}/extrato")
   public ExtratoResponse getExtrato(@PathVariable Long id) {
     var cliente = clienteService.findByIdOrThrow(id);
-    List<TransacaoResponse> ultimasTransacoes = transacaoService.findByClienteId(id)
+    List<TransacaoResponse> ultimasTransacoes = transacaoService.listarUltimasTransacoes(cliente)
         .stream().map(ClienteHelper::toTransacaoResponse)
         .toList();
     return ExtratoResponse.builder()
@@ -36,9 +37,12 @@ public class ClienteController {
   }
 
   @PostMapping("/{id}/transacoes")
-  public void criarTransacao(@RequestBody CriarTransacaoRequest request, @PathVariable Long id) {
+  public ClienteResponse criarTransacao(@RequestBody CriarTransacaoRequest request,
+      @PathVariable Long id
+  ) {
     var cliente = clienteService.findByIdOrThrow(id);
-    transacaoService.criarTransacao(cliente, request.valor(), request.tipo(), request.descricao());
+    transacaoService.criarTransacao(cliente, request.tipo(), request.valor(), request.descricao());
+    return ClienteHelper.toClienteResponse(cliente);
   }
 
 }

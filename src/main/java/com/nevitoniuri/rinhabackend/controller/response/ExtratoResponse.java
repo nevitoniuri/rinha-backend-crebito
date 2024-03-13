@@ -6,8 +6,9 @@ import lombok.Builder;
 
 @Builder
 public record ExtratoResponse(
+    @JsonProperty(index = 1)
     SaldoResponse saldo,
-    @JsonProperty("ultimas_transacoes")
+    @JsonProperty(index = 2, value = "ultimas_transacoes")
     List<TransacaoResponse> ultimasTransacoes
 ) {
 }
