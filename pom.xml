@@ -11,8 +11,8 @@
 	<groupId>com.nevitoniuri</groupId>
 	<artifactId>rinhabackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rinhabackend</name>
-	<description>Resolução da 2ª edição da Rinha de Backend - 2024.1</description>
+	<name>rinhabackend-crebito</name>
+	<description>Resolução da 2ª edição da Rinha de Backend - Crébito 2024.1</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
