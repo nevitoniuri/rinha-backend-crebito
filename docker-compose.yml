@@ -1,33 +1,10 @@
 version: '3.8'
 
-networks:
-  default:
-    driver: bridge
-    name: rinhabackend-network
-
-volumes:
-  rinhabackend:
-    driver: local
-
 services:
-  postgres-local:
-    image: postgres:14.6
-    container_name: rinhabackend-local
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: 'rinhabackend'
-      POSTGRES_PASSWORD: 'postgres'
-    networks:
-      - default
-    volumes:
-      - rinhabackend:/var/lib/postgresql/data
-
   api01: &api
     build:
       context: ./
       dockerfile: Dockerfile
-    working_dir: /usr/src/app
     hostname: api01
     environment:
       DB_HOST: rinha
@@ -69,7 +46,7 @@ services:
           memory: "40MB"
 
   db:
-    image: postgres:latest
+    image: postgres:14.6
     hostname: db
     environment:
       - POSTGRES_PASSWORD=123

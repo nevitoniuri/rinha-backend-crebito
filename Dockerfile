@@ -7,5 +7,5 @@ RUN mvn clean package -DskipTests
 #RUN
 FROM maven:3.8.3-openjdk-17-slim
 WORKDIR /usr/src/app
-COPY --from=build ./target/rinhabackend-crebito-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /usr/src/app/target/rinhabackend-0.0.1-SNAPSHOT.jar app.jar
 CMD ["java", "-jar", "app.jar"]
